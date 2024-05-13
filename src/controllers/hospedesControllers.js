@@ -52,13 +52,23 @@ const hospedesControllers = {
         ]
       );
 
-      if (hospedeCreated.rowCount < 1) {
+      if (hospedeCreated.rowCount != 1) {
         return res.status(400).json({ mensagem: "Hospede não foi Criado." });
       }
 
       res.status(201);
     } catch (error) {
       console.log(error);
+      res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+  },
+
+  async listarHospedes(req, res) {
+    try {
+      const hospedes = await pool.query("SELECT * FROM hospedes");
+
+      res.status(200).json(hospedes.rows);
+    } catch (error) {
       res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
   },

@@ -72,7 +72,19 @@ const hospedesControllers = {
       res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
   },
+  async buscarHospede(req, res) {
+    try {
+      const { id } = req.params;
 
+      const hospede = await pool.query("SELECT * FROM hospedes WHERE id = $1", [
+        id,
+      ]);
+
+      res.status(200).json(hospede.rows[0]);
+    } catch (error) {
+      res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+  },
   async editarHospedes(req, res) {
     try {
       const { id } = req.params;

@@ -17,8 +17,8 @@ const email = Joi.string().required().messages({
   "string.empty": "O campo email é obrigatório.",
 });
 const rg = Joi.string().required().messages({
-  "any.required": "O campo cpf é obrigatório.",
-  "string.empty": "O campo cpf é obrigatório.",
+  "any.required": "O campo rg é obrigatório.",
+  "string.empty": "O campo rg é obrigatório.",
 });
 const pais = Joi.string().required().messages({
   "any.required": "O campo país é obrigatório.",

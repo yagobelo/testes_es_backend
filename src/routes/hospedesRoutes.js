@@ -10,6 +10,7 @@ router.post(
   hospedesControllers.cadastrarHospedes
 );
 router.get("/listar", hospedesControllers.listarHospedes);
+router.get("/buscar/:id", hospedesControllers.buscarHospede);
 router.put("/editar/:id", hospedesControllers.editarHospedes);
 
 module.exports = router;

@@ -19,9 +19,7 @@ create table
 create table
   reservas (
     id serial primary key,
-    cama_casal boolean not null,
-    quarto_fumantes boolean not null,
-    chave_extra boolean not null,
+    rg_hospede text not null,
     data_checkin text not null,
     data_checkout text not null,
     statusReserva text not null,

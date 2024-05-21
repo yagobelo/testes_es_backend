@@ -47,7 +47,15 @@ const reservasControllers = {
 
       res.status(201).json({ mensagem: "Reserva Criada." });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+  },
+  async listarReservas(req, res) {
+    try {
+      const reservas = await pool.query("SELECT * FROM reservas");
+
+      res.status(200).json(reservas.rows);
+    } catch (error) {
       res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
   },

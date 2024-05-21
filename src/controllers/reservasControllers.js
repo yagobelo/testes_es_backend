@@ -1,4 +1,3 @@
-const { query } = require("express");
 const pool = require("../db/ConnetionDB");
 
 const reservasControllers = {
@@ -12,7 +11,6 @@ const reservasControllers = {
         [rg_hospede]
       );
 
-      console.log(req.body);
       if (hospedeExist.rowCount < 1) {
         return res
           .status(400)
@@ -23,13 +21,23 @@ const reservasControllers = {
       const dataNow = data.toLocaleString("pt-BR", {
         timeZone: "America/Maceio",
       });
+      const data_checkin_formatada = new Date(data_checkin).toLocaleDateString(
+        "pt-BR"
+      );
+      const data_checkout_formatada = new Date(
+        data_checkout
+      ).toLocaleDateString("pt-BR");
 
       const reservaCreated = await pool.query(
         "INSERT INTO reservas (rg_hospede, data_checkin, data_checkout, status_reserva, create_at) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-        [rg_hospede, data_checkin, data_checkout, status_reserva, dataNow]
+        [
+          rg_hospede,
+          data_checkin_formatada,
+          data_checkout_formatada,
+          status_reserva,
+          dataNow,
+        ]
       );
-
-      console.log(reservaCreated);
 
       const vinculoCreated = await pool.query(
         "INSERT INTO reserva_hospedes (hospede_id, reserva_id, create_at) VALUES ($1, $2, $3)",
@@ -90,9 +98,16 @@ const reservasControllers = {
         return res.status(404).json({ mensagem: "Reserva não encontrada." });
       }
 
+      const data_checkin_formatada = new Date(data_checkin).toLocaleDateString(
+        "pt-BR"
+      );
+      const data_checkout_formatada = new Date(
+        data_checkout
+      ).toLocaleDateString("pt-BR");
+
       await pool.query(
         "UPDATE reservas SET data_checkin = $1, data_checkout = $2, status_reserva = $3 WHERE id = $4",
-        [data_checkin, data_checkout, status_reserva, id]
+        [data_checkin_formatada, data_checkout_formatada, status_reserva, id]
       );
 
       res.status(200).json({ mensagem: "Reserva atualizada." });

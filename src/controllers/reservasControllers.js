@@ -72,6 +72,30 @@ const reservasControllers = {
       res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
   },
+  async editarReserva(req, res) {
+    try {
+      const { id } = req.params;
+      const { data_checkin, data_checkout, status_reserva } = req.body;
+
+      const reservaExist = await pool.query(
+        "SELECT * FROM reservas WHERE id = $1",
+        [id]
+      );
+
+      if (reservaExist.rowCount < 1) {
+        return res.status(404).json({ mensagem: "Reserva não encontrada." });
+      }
+
+      await pool.query(
+        "UPDATE reservas SET data_checkin = $1, data_checkout = $2, status_reserva = $3 WHERE id = $4",
+        [data_checkin, data_checkout, status_reserva, id]
+      );
+
+      res.status(200).json({ mensagem: "Reserva atualizada." });
+    } catch (error) {
+      res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+  },
 };
 
 module.exports = reservasControllers;

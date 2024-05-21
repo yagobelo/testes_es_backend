@@ -52,8 +52,8 @@ const hospedesControllers = {
         ]
       );
 
-      if (hospedeCreated.rowCount != 1) {
-        return res.status(400).json({ mensagem: "Hospede não foi Criado." });
+      if (hospedeCreated.rowCount < 1) {
+        return res.status(400).json({ mensagem: "Hospede não foi criado." });
       }
 
       res.status(201).json({ mensagem: "Hospede Criado." });

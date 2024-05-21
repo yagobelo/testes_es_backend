@@ -22,16 +22,16 @@ create table
     rg_hospede text not null,
     data_checkin text not null,
     data_checkout text not null,
-    statusReserva text not null,
+    status_reserva text not null,
     create_at text not null
   );
 
 create table
   reserva_hospedes (
     id serial primary key,
-    hospedes_id int not null,
-    reservas_id int not null,
-    foreign key (hospedes_id) references hospedes (id),
-    foreign key (reservas_id) references reservas (id),
+    hospede_id int not null,
+    reserva_id int not null,
+    foreign key (hospede_id) references hospedes (id),
+    foreign key (reserva_id) references reservas (id),
     create_at text not null
   );

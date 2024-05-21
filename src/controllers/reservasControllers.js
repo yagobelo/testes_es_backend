@@ -59,6 +59,19 @@ const reservasControllers = {
       res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
   },
+  async buscarReserva(req, res) {
+    try {
+      const { id } = req.params;
+
+      const reserva = await pool.query("SELECT * FROM reservas WHERE id = $1", [
+        id,
+      ]);
+
+      res.status(200).json(reserva.rows[0]);
+    } catch (error) {
+      res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+  },
 };
 
 module.exports = reservasControllers;

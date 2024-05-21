@@ -20,8 +20,8 @@ create table
   reservas (
     id serial primary key,
     rg_hospede text not null,
-    data_checkin text not null,
-    data_checkout text not null,
+    data_checkin text,
+    data_checkout text,
     status_reserva text not null,
     create_at text not null
   );

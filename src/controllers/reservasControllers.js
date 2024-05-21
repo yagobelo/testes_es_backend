@@ -12,6 +12,7 @@ const reservasControllers = {
         [rg_hospede]
       );
 
+      console.log(req.body);
       if (hospedeExist.rowCount < 1) {
         return res
           .status(400)
@@ -47,12 +48,15 @@ const reservasControllers = {
 
       res.status(201).json({ mensagem: "Reserva Criada." });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
   },
   async listarReservas(req, res) {
     try {
-      const reservas = await pool.query("SELECT * FROM reservas");
+      const reservas = await pool.query(
+        "SELECT * FROM reservas ORDER BY id DESC"
+      );
 
       res.status(200).json(reservas.rows);
     } catch (error) {

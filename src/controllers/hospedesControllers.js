@@ -65,7 +65,9 @@ const hospedesControllers = {
 
   async listarHospedes(req, res) {
     try {
-      const hospedes = await pool.query("SELECT * FROM hospedes");
+      const hospedes = await pool.query(
+        "SELECT * FROM hospedes ORDER BY id DESC"
+      );
 
       res.status(200).json(hospedes.rows);
     } catch (error) {

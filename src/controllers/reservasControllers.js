@@ -18,25 +18,11 @@ const reservasControllers = {
       }
 
       const data = new Date();
-      const dataNow = data.toLocaleString("pt-BR", {
-        timeZone: "America/Maceio",
-      });
-      const data_checkin_formatada = new Date(data_checkin).toLocaleDateString(
-        "pt-BR"
-      );
-      const data_checkout_formatada = new Date(
-        data_checkout
-      ).toLocaleDateString("pt-BR");
+      const dataNow = data.toLocaleString();
 
       const reservaCreated = await pool.query(
         "INSERT INTO reservas (rg_hospede, data_checkin, data_checkout, status_reserva, create_at) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-        [
-          rg_hospede,
-          data_checkin_formatada,
-          data_checkout_formatada,
-          status_reserva,
-          dataNow,
-        ]
+        [rg_hospede, data_checkin, data_checkout, status_reserva, dataNow]
       );
 
       const vinculoCreated = await pool.query(
@@ -97,13 +83,6 @@ const reservasControllers = {
       if (reservaExist.rowCount < 1) {
         return res.status(404).json({ mensagem: "Reserva não encontrada." });
       }
-
-      const data_checkin_formatada = new Date(data_checkin).toLocaleDateString(
-        "pt-BR"
-      );
-      const data_checkout_formatada = new Date(
-        data_checkout
-      ).toLocaleDateString("pt-BR");
 
       await pool.query(
         "UPDATE reservas SET data_checkin = $1, data_checkout = $2, status_reserva = $3 WHERE id = $4",

@@ -30,9 +30,7 @@ const hospedesControllers = {
       }
 
       const data = new Date();
-      const dataNow = data.toLocaleString("pt-BR", {
-        timeZone: "America/Maceio",
-      });
+      const dataNow = data.toLocaleString();
       const data_nascimento_formatada = new Date(
         data_nascimento
       ).toLocaleDateString("pt-BR");
@@ -118,15 +116,11 @@ const hospedesControllers = {
         return res.status(404).json({ mensagem: "Hospede não encontrado." });
       }
 
-      const data_nascimento_formatada = new Date(
-        data_nascimento
-      ).toLocaleDateString("pt-BR");
-
       await pool.query(
         "UPDATE hospedes SET nome = $1, data_nascimento = $2, telefone = $3, email = $4, rg = $5, pais = $6, estado = $7, cidade = $8, logradouro = $9, numero_endereco = $10, bairro = $11, complemento_endereco = $12 WHERE id = $13",
         [
           nome,
-          data_nascimento_formatada,
+          data_nascimento,
           telefone,
           email,
           rg,

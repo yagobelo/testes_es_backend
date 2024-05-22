@@ -20,10 +20,6 @@ const rg = Joi.string().required().messages({
   "any.required": "O campo rg é obrigatório.",
   "string.empty": "O campo rg é obrigatório.",
 });
-const pais = Joi.string().required().messages({
-  "any.required": "O campo país é obrigatório.",
-  "string.empty": "O campo país é obrigatório.",
-});
 const estado = Joi.string().required().messages({
   "any.required": "O campo estado é obrigatório.",
   "string.empty": "O campo estado é obrigatório.",
@@ -52,7 +48,6 @@ const schemaHospedes = Joi.object({
   telefone,
   email,
   rg,
-  pais,
   estado,
   cidade,
   logradouro,

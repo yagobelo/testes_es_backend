@@ -9,7 +9,6 @@ const hospedesControllers = {
         telefone,
         email,
         rg,
-        pais,
         estado,
         cidade,
         logradouro,
@@ -33,14 +32,13 @@ const hospedesControllers = {
       const dataNow = data.toLocaleString();
 
       const hospedeCreated = await pool.query(
-        "INSERT INTO hospedes (nome, data_nascimento, telefone, email, rg, pais, estado, cidade, logradouro, numero_endereco, bairro, complemento_endereco, create_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)",
+        "INSERT INTO hospedes (nome, data_nascimento, telefone, email, rg, estado, cidade, logradouro, numero_endereco, bairro, complemento_endereco, create_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)",
         [
           nome,
           data_nascimento,
           telefone,
           email,
           rg,
-          pais,
           estado,
           cidade,
           logradouro,
@@ -95,7 +93,6 @@ const hospedesControllers = {
         telefone,
         email,
         rg,
-        pais,
         estado,
         cidade,
         logradouro,
@@ -114,14 +111,13 @@ const hospedesControllers = {
       }
 
       await pool.query(
-        "UPDATE hospedes SET nome = $1, data_nascimento = $2, telefone = $3, email = $4, rg = $5, pais = $6, estado = $7, cidade = $8, logradouro = $9, numero_endereco = $10, bairro = $11, complemento_endereco = $12 WHERE id = $13",
+        "UPDATE hospedes SET nome = $1, data_nascimento = $2, telefone = $3, email = $4, rg = $5, estado = $6, cidade = $7, logradouro = $8, numero_endereco = $9, bairro = $10, complemento_endereco = $11 WHERE id = $12",
         [
           nome,
           data_nascimento,
           telefone,
           email,
           rg,
-          pais,
           estado,
           cidade,
           logradouro,

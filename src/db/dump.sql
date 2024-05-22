@@ -6,7 +6,6 @@ create table
     telefone text not null,
     email text,
     rg text not null,
-    pais text not null,
     estado text not null,
     cidade text not null,
     logradouro text not null,

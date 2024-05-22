@@ -31,15 +31,12 @@ const hospedesControllers = {
 
       const data = new Date();
       const dataNow = data.toLocaleString();
-      const data_nascimento_formatada = new Date(
-        data_nascimento
-      ).toLocaleDateString("pt-BR");
 
       const hospedeCreated = await pool.query(
         "INSERT INTO hospedes (nome, data_nascimento, telefone, email, rg, pais, estado, cidade, logradouro, numero_endereco, bairro, complemento_endereco, create_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)",
         [
           nome,
-          data_nascimento_formatada,
+          data_nascimento,
           telefone,
           email,
           rg,

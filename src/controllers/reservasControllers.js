@@ -86,11 +86,12 @@ const reservasControllers = {
 
       await pool.query(
         "UPDATE reservas SET data_checkin = $1, data_checkout = $2, status_reserva = $3 WHERE id = $4",
-        [data_checkin_formatada, data_checkout_formatada, status_reserva, id]
+        [data_checkin, data_checkout, status_reserva, id]
       );
 
       res.status(200).json({ mensagem: "Reserva atualizada." });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
   },

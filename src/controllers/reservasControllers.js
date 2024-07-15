@@ -17,6 +17,13 @@ const reservasControllers = {
           .json({ mensagem: "Não foi encontrado hospede com o RG informado." });
       }
 
+      if (data_checkout < data_checkin) {
+        return res.status(400).json({
+          mensagem:
+            "Data de checkout não pode ser menor que a data de checkin.",
+        });
+      }
+
       const data = new Date();
       const dataNow = data.toLocaleString();
 

@@ -56,7 +56,7 @@ const reservasControllers = {
   async listarReservas(req, res) {
     try {
       const reservas = await pool.query(
-        "SELECT * FROM reservas ORDER BY id DESC"
+        "SELECT reservas.*, hospedes.nome, hospedes.data_nascimento, hospedes.telefone, hospedes.email, hospedes.estado, hospedes.cidade, hospedes.logradouro, hospedes.numero_endereco, hospedes.bairro, hospedes.complemento_endereco FROM reservas JOIN hospedes ON reservas.rg_hospede = hospedes.rg ORDER BY reservas.id DESC"
       );
 
       res.status(200).json(reservas.rows);

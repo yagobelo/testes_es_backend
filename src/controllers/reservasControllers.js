@@ -80,7 +80,8 @@ const reservasControllers = {
   async editarReserva(req, res) {
     try {
       const { id } = req.params;
-      const { data_checkin, data_checkout, status_reserva } = req.body;
+      const { rg_hospede, data_checkin, data_checkout, status_reserva } =
+        req.body;
 
       const reservaExist = await pool.query(
         "SELECT * FROM reservas WHERE id = $1",
@@ -91,9 +92,27 @@ const reservasControllers = {
         return res.status(404).json({ mensagem: "Reserva não encontrada." });
       }
 
+      const hospedeExist = await pool.query(
+        "SELECT * FROM hospedes WHERE rg = $1",
+        [rg_hospede]
+      );
+
+      if (hospedeExist.rowCount < 1) {
+        return res
+          .status(400)
+          .json({ mensagem: "Não foi encontrado hospede com o RG informado." });
+      }
+
+      if (data_checkout < data_checkin) {
+        return res.status(400).json({
+          mensagem:
+            "Data de checkout não pode ser menor que a data de checkin.",
+        });
+      }
+
       await pool.query(
-        "UPDATE reservas SET data_checkin = $1, data_checkout = $2, status_reserva = $3 WHERE id = $4",
-        [data_checkin, data_checkout, status_reserva, id]
+        "UPDATE reservas SET rg_hospede = $1, data_checkin = $2, data_checkout = $3, status_reserva = $4 WHERE id = $5",
+        [rg_hospede, data_checkin, data_checkout, status_reserva, id]
       );
 
       res.status(200).json({ mensagem: "Reserva atualizada." });
